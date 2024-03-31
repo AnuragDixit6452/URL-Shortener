@@ -10,8 +10,13 @@ async function handleGenerateShortURL(req, res) {
     shortUrl: generatedUrl,
     redirectUrl: body.url,
     visitHistory: [],
+    createdBy: req._id,
   });
-  return res.json({ id: generatedUrl });
+  const allUrls = await URL.find({});
+  return res.render("home", {
+    id: generatedUrl,
+    url: allUrls,
+  });
 }
 
 async function handleGetAnalytics(req, res) {

@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <h1>Hello World</h1>
-</body>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>URL SHORTENER</h1>
+    <form method="POST" action="/api/url/">
+      <label for="url">Please enter url</label>
+      <input type="text" name="url" placeholder="https://example.com" />
+      <button type="submit">Generate</button>
+    </form>
+    <% if (locals.id) { %>
+    <p>URL GENERATED:: http://localhost:8001/url/<%= id %></p>
+    <% } %> <% if (locals.url) { %>
+    <table>
+      <thead>
+        <th>Sr.No</th>
+        <th>Original URL</th>
+        <th>Shortened URL</th>
+        <th>Total Click</th>
+      </thead>
+
+      <tbody>
+        <% url.forEach((element,index) => { %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td><%= element.redirectUrl %></td>
+          <td><%= element.shortUrl %></td>
+          <td><%= element.visitHistory.length %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </body>
 </html>
